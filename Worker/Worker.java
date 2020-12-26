@@ -74,6 +74,7 @@ public class Worker<E> {
             try {
                 mCompletedCount.await();
                 mBuilder.mCallback.onComplete();
+                shutDown();
             } catch (InterruptedException e) {
 
             }
@@ -118,6 +119,10 @@ public class Worker<E> {
                 }
             }
         };
+    }
+
+    private void shutDown() {
+        mExecutor.shutDown();
     }
 
     private void allCountDown() {
